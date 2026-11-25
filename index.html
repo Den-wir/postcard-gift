@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вам пришла маленькая открытка</title>
+<meta name="description" content="Вам пришла маленькая открытка.">
+<style>
+  :root{
+    --bg:#05060d;
+    --ink:#f6f3ff;
+    --muted:#b9b4d6;
+    --accent:#ff9bc2;
+    --accent2:#8bd3ff;
+    --card:rgba(18,17,36,.78);
+    --border:rgba(255,255,255,.14);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{height:100%}
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(1100px 700px at 15% -10%,rgba(92,63,150,.38),transparent 60%),
+      radial-gradient(900px 620px at 100% 10%,rgba(21,92,145,.30),transparent 58%),
+      radial-gradient(700px 500px at 50% 110%,rgba(150,38,86,.26),transparent 60%),
+      var(--bg);
+    overflow-x:hidden;
+  }
+  /* звёздный фон */
+  .sky{position:fixed;inset:0;pointer-events:none;opacity:.75}
+  .sky::before,.sky::after{
+    content:"";position:absolute;inset:-50%;
+    background-image:
+      radial-gradient(1.5px 1.5px at 20% 30%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 70% 18%,#cfe4ff 50%,transparent 51%),
+      radial-gradient(1.8px 1.8px at 42% 78%,#ffd9eb 50%,transparent 51%),
+      radial-gradient(1px 1px at 85% 62%,#fff 50%,transparent 51%),
+      radial-gradient(1.2px 1.2px at 10% 88%,#bcd8ff 50%,transparent 51%);
+    background-size:310px 310px,240px 240px,420px 420px,180px 180px,270px 270px;
+    animation:drift 90s linear infinite;
+  }
+  .sky::after{animation-duration:140s;animation-direction:reverse;opacity:.55;transform:scale(1.4)}
+  @keyframes drift{to{transform:translate3d(6%,8%,0)}}
+
+  .wrap{
+    position:relative;z-index:1;
+    min-height:100%;
+    display:grid;place-items:center;
+    padding:clamp(18px,4vw,48px);
+  }
+  .panel{
+    width:min(820px,100%);
+    padding:clamp(22px,4vw,44px);
+    border:1px solid var(--border);
+    border-radius:28px;
+    background:var(--card);
+    box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter:blur(14px);
+    animation:rise .7s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+
+  .intro{text-align:center}
+  .intro-title{
+    margin:0 0 44px;
+    font-size:clamp(30px,6.2vw,56px);
+    line-height:1.18;
+    font-weight:500;
+    letter-spacing:-.02em;
+    background:linear-gradient(100deg,var(--accent2),#ece5ff 48%,var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 28px rgba(139,211,255,.18));
+  }
+  .intro-title::before,.intro-title::after{
+    content:"";display:block;
+    width:76px;height:1px;margin:0 auto;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  }
+  .intro-title::before{margin-bottom:28px}
+  .intro-title::after{margin-top:28px}
+  button{
+    font:inherit;cursor:pointer;color:#0b0713;
+    border:0;border-radius:999px;
+    padding:14px 28px;font-weight:650;
+    background:var(--accent);
+    box-shadow:0 10px 30px rgba(255,155,194,.28);
+    transition:transform .2s,box-shadow .2s,filter .2s;
+  }
+  button:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(255,155,194,.4);filter:brightness(1.05)}
+  button:active{transform:translateY(0)}
+  button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  button.ghost{
+    background:transparent;color:var(--muted);
+    border:1px solid var(--border);box-shadow:none;
+    padding:10px 18px;font-size:13px;
+  }
+  button.ghost:hover{color:var(--ink);border-color:rgba(255,255,255,.35)}
+
+  .video-shell{
+    position:relative;
+    border-radius:18px;overflow:hidden;
+    background:#010203;
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:0 0 60px rgba(139,211,255,.10),inset 0 0 40px rgba(0,0,0,.6);
+  }
+  video{display:block;width:100%;height:auto;aspect-ratio:702/510}
+  .end{
+    position:absolute;inset:0;
+    display:grid;place-content:center;justify-items:center;gap:22px;
+    text-align:center;padding:20px;
+    background:radial-gradient(circle at 50% 45%,rgba(20,10,32,.72),rgba(3,4,10,.94));
+    animation:fade .5s ease both;
+  }
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+
+  .message{
+    margin-top:26px;text-align:center;
+    animation:fade .8s .2s both;
+  }
+  .message p{
+    margin:0 auto;max-width:560px;color:var(--muted);
+    line-height:1.7;font-size:clamp(14px,2vw,16px);
+  }
+  .sign{margin-top:18px!important;color:var(--accent)!important;font-size:15px!important}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+
+<main class="wrap">
+  <!-- ПЕРВЫЙ ЭКРАН -->
+  <section class="panel intro" id="intro">
+    <h1 class="intro-title">Вам пришла маленькая открытка</h1>
+    <button id="openBtn" type="button">Открыть открытку →</button>
+  </section>
+
+  <!-- САМА ОТКРЫТКА -->
+  <section class="panel" id="card" hidden>
+    <div class="video-shell">
+      <video id="video" poster="poster.jpg" playsinline preload="auto" muted
+             aria-label="Анимация: глаз превращается в космос с сердцем">
+        <source src="eye.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+      </video>
+      <div class="end" id="end" hidden>
+        <button id="replayBtn" type="button">💗 Посмотреть ещё раз</button>
+      </div>
+    </div>
+
+    <div class="message">
+      <p id="msgText"></p>
+      <p class="sign" id="msgSign"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ============================================================
+   ЛИЧНЫЙ ТЕКСТ ОТКРЫТКИ — поменяй строки ниже под себя
+   ============================================================ */
+const CONFIG = {
+  text: "Спасибо, что ты есть рядом. Пусть в твоём небе всегда будет немного звезд, а в груди — это тихое тёплое сердце.",
+  sign: "С любовью, твой деня"
+};
+/* ============================================================ */
+
+const $ = (id) => document.getElementById(id);
+const video = $("video");
+
+$("msgText").textContent = CONFIG.text;
+$("msgSign").textContent = CONFIG.sign;
+
+function playFromStart() {
+  $("end").hidden = true;
+  video.currentTime = 0;
+  const p = video.play();
+  if (p && p.catch) p.catch(() => {});
+}
+
+$("openBtn").addEventListener("click", () => {
+  $("intro").hidden = true;
+  $("card").hidden = false;
+  playFromStart();
+});
+$("replayBtn").addEventListener("click", playFromStart);
+
+video.addEventListener("click", () => {
+  if (video.paused) video.play(); else video.pause();
+});
+video.addEventListener("ended", () => { $("end").hidden = false; });
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "r" && !$("card").hidden) playFromStart();
+});
+</script>
+</body>
+</html>
